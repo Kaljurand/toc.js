@@ -2,6 +2,7 @@ toc.js
 ======
 
 The main purpose of publishing and working on this old project is to try out GitHub.
+See also http://kaljurand.github.com/toc.js/
 
 Usage
 -----
