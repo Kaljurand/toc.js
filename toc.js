@@ -1,13 +1,18 @@
 /**
-* This code does two things:
+* This script does two things to the HTML-file to which it is applied:
 * 1. numbers the sections (i.e. puts a number in front of the content of the elements h1, h2, ..., h6)
 * 2. generates a table of contents into an element with an ID "toc"
 *
+* Execute it by e.g.: <body onload="toc(1, 1)">
+*
+* Tested only in Google Chrome and Firefox on Linux.
+*
 * @author Kaarel Kaljurand
-* @version 2009-09-30
+* @version 2011-09-09
 *
 * Changelog:
 *
+* 2011-09-09: Some cleanup
 * 2009-09-30: Some bug fixes
 * 2008-03-12: TOC now contains links to section headings
 * 2007-01-17: Minor fixes and comments changed into English
@@ -16,28 +21,30 @@
 */
 
 function toc(firstNumber, makeToc) {
-	var tased = new Array("H2", "H3", "H4", "H5", "H6");
-	var pead = new Array(5);
+	var levels = new Array("H2", "H3", "H4", "H5", "H6");
+	var number_parts = new Array(levels.length);
 
-	pead[0] = firstNumber - 1;
-	pead[1] = pead[2] = pead[3] = pead[4] = 0;
+	number_parts[0] = firstNumber - 1;
+	number_parts[1] = number_parts[2] = number_parts[3] = number_parts[4] = 0;
 
-	tased["H2"] = 0;
-	tased["H3"] = 1;
-	tased["H4"] = 2;
-	tased["H5"] = 3;
-	tased["H6"] = 4;
+	levels["H2"] = 0;
+	levels["H3"] = 1;
+	levels["H4"] = 2;
+	levels["H5"] = 3;
+	levels["H6"] = 4;
 
-	// we start the search from "body"
+	// We start the search from "body"
 	var somebody = document.getElementsByTagName("body").item(0);
 	if (somebody == null) {
-		alert("error: nobody found");
+		alert("ERROR: body-element not found");
 		exit;
 	}
 
 	if (makeToc) {
 		var tocHolder = document.getElementById("toc");
 
+		// If there is no element with id "toc" then create
+		// one before the first h2-element.
 		if (tocHolder == null) {
 			tocHolder = document.createElement("pre");
 			tocHolder.setAttribute("id", "toc");
@@ -50,8 +57,8 @@ function toc(firstNumber, makeToc) {
 	}
 
 	var tocContent = "";
-	// we only consider the direct childern of "body"
-	for(var i = 0; i < somebody.childNodes.length; i++) {
+	// We only consider the direct children of "body"
+	for (var i = 0; i < somebody.childNodes.length; i++) {
 
 		//this doesn't work in Mozilla???: var t = somebody.childNodes[i].tagName;
 		var t = somebody.childNodes[i].nodeName;
@@ -59,20 +66,20 @@ function toc(firstNumber, makeToc) {
 		// BUG: just in case browsers differ (at least they used to in 2002)
 		var s = t.toUpperCase();
 
-		if(s == "H2" || s == "H3" || s == "H4" || s == "H5" || s == "H6") {
-			tase = tased[s];
-			pead[tase]++; // increase the counter
+		if (s == "H2" || s == "H3" || s == "H4" || s == "H5" || s == "H6") {
+			var levelNum = levels[s];
+			number_parts[levelNum]++; // increase the counter
 
-			// set all the next levels to zero
-			for(j = tase + 1; j < pead.length; j++) {
-				pead[j] = 0;
+			// Set all the next levels to zero
+			for (j = levelNum + 1; j < number_parts.length; j++) {
+				number_parts[j] = 0;
 			}
 
-			// create a string
-			number = pead[0];
+			// Create a string
+			var number = number_parts[0];
 
-			for(j = 1; (pead[j] != 0) && (j < pead.length); j++) {
-				number += "." + pead[j];
+			for (j = 1; (number_parts[j] != 0) && (j < number_parts.length); j++) {
+				number += "." + number_parts[j];
 			}
 
 			// We use "\r\n" to make IE happy.
@@ -87,6 +94,6 @@ function toc(firstNumber, makeToc) {
 	}
 
 	if (makeToc) {
-		tocHolder.innerHTML = tocContent;
+		tocHolder.innerHTML += tocContent;
 	}
 }
