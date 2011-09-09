@@ -3,9 +3,9 @@
 * 1. numbers the sections (i.e. puts a number in front of the content of the elements h1, h2, ..., h6)
 * 2. generates a table of contents into an element with an ID "toc"
 *
-* Execute it by: <body onload="toc(1, 1)">
+* Execute it by e.g.: <body onload="toc(1, 1)">
 *
-* Tested only in Google Chrome on Linux.
+* Tested only in Google Chrome and Firefox on Linux.
 *
 * @author Kaarel Kaljurand
 * @version 2011-09-09
@@ -33,7 +33,7 @@ function toc(firstNumber, makeToc) {
 	levels["H5"] = 3;
 	levels["H6"] = 4;
 
-	// we start the search from "body"
+	// We start the search from "body"
 	var somebody = document.getElementsByTagName("body").item(0);
 	if (somebody == null) {
 		alert("ERROR: body-element not found");
@@ -57,7 +57,7 @@ function toc(firstNumber, makeToc) {
 	}
 
 	var tocContent = "";
-	// we only consider the direct childern of "body"
+	// We only consider the direct children of "body"
 	for (var i = 0; i < somebody.childNodes.length; i++) {
 
 		//this doesn't work in Mozilla???: var t = somebody.childNodes[i].tagName;
@@ -67,16 +67,16 @@ function toc(firstNumber, makeToc) {
 		var s = t.toUpperCase();
 
 		if (s == "H2" || s == "H3" || s == "H4" || s == "H5" || s == "H6") {
-			tase = levels[s];
-			number_parts[tase]++; // increase the counter
+			var levelNum = levels[s];
+			number_parts[levelNum]++; // increase the counter
 
-			// set all the next levels to zero
-			for (j = tase + 1; j < number_parts.length; j++) {
+			// Set all the next levels to zero
+			for (j = levelNum + 1; j < number_parts.length; j++) {
 				number_parts[j] = 0;
 			}
 
-			// create a string
-			number = number_parts[0];
+			// Create a string
+			var number = number_parts[0];
 
 			for (j = 1; (number_parts[j] != 0) && (j < number_parts.length); j++) {
 				number += "." + number_parts[j];
