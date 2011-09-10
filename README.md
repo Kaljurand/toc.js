@@ -10,11 +10,16 @@ Usage
 The script `toc.js` does two things to the HTML-file to which it is applied:
 
 1. numbers the sections (i.e. puts a number in front of the content of the elements h1, h2, ..., h6)
-2. generates a table of contents into an element with an ID "toc"
+2. (optionally) generates a table of contents into an element with an ID "toc" (if this does not exist then creates a pre#toc-element immediately before the first h2-element)
 
 Execute it by e.g.
 
-    <body onload="toc(1, 1)">
+    <body onload="toc(1, true)">
+
+where
+
+* `1` is the number from which the numbering starts
+* `true` is a boolean that switches on the generation of the table of contents
 
 
 Notes
