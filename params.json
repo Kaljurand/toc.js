@@ -1,0 +1,1 @@
+{"name":"toc.js","body":"**toc.js** is a simple piece of Javascript that numbers the headings (`h1`-`h6`) in the HTML file and creates a table of contents, see an [example](example.html).","tagline":"toc.js numbers the headings in the HTML file and creates a table of contents.","google":"","note":"Don't delete this file! It's used internally to help with page regeneration."}
