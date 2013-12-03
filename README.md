@@ -39,3 +39,7 @@ Contributing
 
 
 [1]: https://github.com/Kaljurand/toc.js/issues
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Kaljurand/toc.js/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
